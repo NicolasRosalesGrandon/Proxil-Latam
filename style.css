@@ -16,9 +16,9 @@ body { background: var(--bg-main); color: var(--white); line-height: 1.6; overfl
 .top-bar { background: #000; padding: 10px 0; border-bottom: 1px solid var(--border-soft); font-size: 0.9rem; }
 .top-flex { display: flex; justify-content: space-between; align-items: center; }
 
-/* Header - Más compacto y elegante */
+/* Header - Optimizado para evitar colisiones con el logo */
 .main-header { 
-    padding: 10px 0; 
+    padding: 15px 0; 
     background: rgba(13, 13, 13, 0.98); 
     backdrop-filter: blur(10px); 
     position: sticky; 
@@ -26,20 +26,48 @@ body { background: var(--bg-main); color: var(--white); line-height: 1.6; overfl
     z-index: 2000;
     border-bottom: 1px solid var(--border-soft);
 }
-.logo-img { height: 75px; width: auto; object-fit: contain; }
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px; /* Espacio de seguridad para que el logo no tope con el menú */
+}
+
+.logo-container {
+    flex-shrink: 0; /* Evita que el logo se comprima en pantallas medianas */
+}
+
+.logo-img { 
+    height: 70px; 
+    width: auto; 
+    object-fit: contain; 
+    display: block;
+}
 
 /* Menú de Navegación */
-.nav-list { list-style: none; display: flex; align-items: center; gap: 30px; }
+.nav-links {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-list { list-style: none; display: flex; align-items: center; gap: 25px; }
+
 .nav-list > li > a { 
     color: #eee; 
     text-decoration: none; 
     font-weight: 700; 
-    font-size: 1rem; 
+    font-size: 0.85rem; 
     text-transform: uppercase; 
     padding: 5px 0; 
     transition: 0.3s; 
+    letter-spacing: 0.5px;
 }
 
+.nav-list > li > a:hover { color: var(--red-bright); }
+
+/* Dropdowns */
 .dropdown-main { position: relative; }
 .submenu { 
     display: none; 
@@ -50,22 +78,35 @@ body { background: var(--bg-main); color: var(--white); line-height: 1.6; overfl
     padding: 15px 0; 
     border-left: 4px solid var(--red-bright); 
     box-shadow: 0 15px 40px rgba(0,0,0,0.8); 
+    top: 100%;
 }
-.l1 { top: 100%; margin-top: 10px; }
 .dropdown-main:hover > .l1, .has-child:hover > .submenu { display: block; }
-.submenu a { display: flex; justify-content: space-between; padding: 12px 25px; color: var(--white); font-size: 1rem; }
+.submenu a { display: flex; justify-content: space-between; padding: 12px 25px; color: var(--white); font-size: 0.9rem; text-decoration: none; }
+.submenu a:hover { background: rgba(255,255,255,0.05); }
 
+/* BOTÓN DISTRIBUIDOR PREMIUM - Estirado y Corporativo */
 .btn-distributor { 
-    background: var(--red-bright); 
-    padding: 10px 25px; 
-    border-radius: 50px; 
+    background: transparent;
+    border: 1px solid var(--red-bright);
+    padding: 12px 45px; /* Padding lateral aumentado para el efecto estirado */
+    border-radius: 2px; /* Bordes rectos para un look más serio/premium */
     color: white !important; 
     font-weight: 800; 
     text-transform: uppercase; 
-    font-size: 0.9rem; 
+    font-size: 0.75rem; 
+    letter-spacing: 2px; /* Espaciado entre letras elegante */
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    white-space: nowrap;
+    margin-left: 10px;
 }
 
-/* Hero Section - Escala balanceada */
+.btn-distributor:hover { 
+    background: var(--red-bright);
+    box-shadow: 0 0 20px rgba(243, 11, 11, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Hero Section */
 .hero { position: relative; height: 90vh; display: flex; align-items: center; overflow: hidden; }
 .video-bg { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -2; transform: translate(-50%, -50%); object-fit: cover; }
 .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: -1; }
@@ -116,111 +157,21 @@ body { background: var(--bg-main); color: var(--white); line-height: 1.6; overfl
 .reveal { opacity: 0; transform: translateY(40px); transition: 1.2s ease-out; }
 .reveal.active { opacity: 1; transform: translateY(0); }
 
-/* --- Estilos para Galería de Documentos en Certificaciones --- */
-.cert-section-title {
-    font-size: 1.8rem;
-    font-weight: 900;
-    margin-top: 80px;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-    border-left: 5px solid var(--red-bright);
-    padding-left: 20px;
-    letter-spacing: 1px;
-}
-.cert-grid-documents {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-    gap: 40px;
-    margin-bottom: 60px;
-}
-.cert-doc-item {
-    display: block;
-    text-decoration: none;
-    transition: transform 0.3s ease;
-}
-.cert-doc-img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease;
-    background: #fff;
-    padding: 5px;
-}
-.cert-doc-item:hover .cert-doc-img {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(243, 11, 11, 0.3);
-    border-color: var(--red-bright);
-}
-.cert-doc-caption {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-    font-weight: 700;
-    color: var(--text-grey);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
+/* --- Certificaciones --- */
+.cert-section-title { font-size: 1.8rem; font-weight: 900; margin-top: 80px; margin-bottom: 40px; text-transform: uppercase; border-left: 5px solid var(--red-bright); padding-left: 20px; letter-spacing: 1px; }
+.cert-grid-documents { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; margin-bottom: 60px; }
+.cert-doc-item { display: block; text-decoration: none; transition: transform 0.3s ease; }
+.cert-doc-img { width: 100%; height: auto; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: all 0.3s ease; background: #fff; padding: 5px; }
+.cert-doc-item:hover .cert-doc-img { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 40px rgba(243, 11, 11, 0.3); border-color: var(--red-bright); }
+.cert-doc-caption { display: block; text-align: center; margin-top: 15px; font-weight: 700; color: var(--text-grey); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
 
-/* --- NUEVO: Estilos para Portadas del Catálogo --- */
-.catalog-covers-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
+/* --- Catálogo --- */
+.catalog-covers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+.cover-card { display: block; border-radius: 15px; overflow: hidden; border: 1px solid var(--border-soft); box-shadow: 0 15px 35px rgba(0,0,0,0.5); transition: all 0.4s ease; cursor: pointer; }
+.cover-card img { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
+.cover-card:hover { border-color: var(--red-bright); box-shadow: 0 20px 40px rgba(243, 11, 11, 0.3); }
+.cover-card:hover img { transform: scale(1.05); }
 
-.cover-card {
-    display: block;
-    border-radius: 15px;
-    overflow: hidden;
-    border: 1px solid var(--border-soft);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-    transition: all 0.4s ease;
-    cursor: pointer;
-}
-
-.cover-card img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.5s ease;
-}
-
-.cover-card:hover {
-    border-color: var(--red-bright);
-    box-shadow: 0 20px 40px rgba(243, 11, 11, 0.3);
-}
-
-.cover-card:hover img {
-    transform: scale(1.05);
-}
-
-.product-category-section {
-    padding: 80px 0;
-    border-bottom: 1px solid var(--border-soft);
-    scroll-margin-top: 120px;
-}
-
-.category-header-title {
-    font-size: 2.2rem;
-    font-weight: 900;
-    color: var(--white);
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    border-left: 5px solid var(--red-bright);
-    padding-left: 20px;
-}
-
-.placeholder-text {
-    color: var(--text-grey);
-    font-size: 1.2rem;
-    font-style: italic;
-    background: #111;
-    padding: 40px;
-    border-radius: 15px;
-    text-align: center;
-    border: 1px dashed #333;
-}
+.product-category-section { padding: 80px 0; border-bottom: 1px solid var(--border-soft); scroll-margin-top: 120px; }
+.category-header-title { font-size: 2.2rem; font-weight: 900; color: var(--white); margin-bottom: 20px; text-transform: uppercase; border-left: 5px solid var(--red-bright); padding-left: 20px; }
+.placeholder-text { color: var(--text-grey); font-size: 1.2rem; font-style: italic; background: #111; padding: 40px; border-radius: 15px; text-align: center; border: 1px dashed #333; }
